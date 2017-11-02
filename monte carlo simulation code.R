@@ -4,7 +4,7 @@ set.seed(2)
 ls() 
 library(plyr)
 
-data1 <- read.csv("/Users/akshaygoel/Dropbox/Research Documents/MSK/2016 Analysis/monte carlo input.csv", header = TRUE)
+data1 <- read.csv("/Users/akshaygoel/Development/erinjeri-models/monte carlo input.csv", header = TRUE)
 
 ##
 ##
@@ -86,6 +86,14 @@ summary(d.all$eventdayNones)
 hist(d.all$eventdayNones)
 
 
+#https://stackoverflow.com/questions/17416453/force-r-to-plot-histogram-as-probability-relative-frequency
+#Converting to probability distribution
+
+h <- hist(d.all$eventday, plot=FALSE)
+h$counts=h$counts/sum(h$counts)
+plot(h)
+
+
 
 
 
@@ -95,10 +103,8 @@ require(grid)
 require(ggthemes)
 
 g <- ggplot(data=d.all, aes(eventday)) + 
-  geom_histogram(breaks=seq(0, 30, by =1), 
-                 col="white", 
-                 aes(fill=..count..))+labs(x="day of month", y="neutropenic events")  
-
+  
+  geom_histogram(breaks=seq(0, 30, by =1),   col="white", aes(y=..count../sum(..count..))) + labs(x="day of month", y="probability of event")  
 
 g <- g + theme(plot.title = element_text(size=20, face="bold", vjust=1))
 g <- g + theme(axis.text.x=element_text(size=13, vjust=0.5))
