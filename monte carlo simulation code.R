@@ -104,15 +104,15 @@ require(ggthemes)
 
 g <- ggplot(data=d.all, aes(eventday)) + 
   
-  geom_histogram(breaks=seq(0, 30, by =1),   col="white", aes(y=..count../sum(..count..))) + labs(x="day of month", y="probability of event")  
+  geom_histogram(breaks=seq(0, 30, by =1), col="white", aes(y=..count../sum(..count..))) + labs(x="day of month", y="probability of event")  
 
-g <- g + theme(plot.title = element_text(size=20, face="bold", vjust=1))
+g <- g + theme(plot.title = element_text(size=20, hjust=0.5, face="bold", vjust=1))
 g <- g + theme(axis.text.x=element_text(size=13, vjust=0.5))
-g <- g + theme(axis.text.y=element_text(size=13, hjust=0.5)) + ggtitle('neutropenic events per day')
+g <- g + theme(axis.text.y=element_text(size=13, hjust=0.5)) + ggtitle('neutropenic events by day')
 
 g <- g + theme(
-  axis.title.x = element_text(size=13, vjust=-0.35),
-  axis.title.y = element_text(size=13, vjust=0.35)   
+  axis.title.x = element_text(size=12, vjust=-0.35),
+  axis.title.y = element_text(size=12, vjust=0.35)   
 )
 
 g <-  g+ scale_x_continuous(limit = c(0, 35))
